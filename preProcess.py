@@ -15,19 +15,13 @@ from pprint import pprint
 from gensim.utils import simple_preprocess
 from gensim.models import Word2Vec
 from gensim.models.keyedvectors import KeyedVectors
+from nltk.stem import PorterStemmer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from statistics import mean
+from vectorizer import getWeight
 
 
 
-nlp = spacy.load("en_core_web_sm")
-
-deselect_stop_words = ['no', 'not']
-
-
-
-for w in deselect_stop_words:
-  nlp.vocab[w].is_stop = False
-  
- 
 def strip_html_tags(text):
     """remove html tags from text"""
     soup = BeautifulSoup(text, "html.parser")
@@ -158,27 +152,31 @@ def main():
 
         # add item to the list
         Questions.append(currentQuestion)
+  
+
+  weights = np.array(getWeight())
 
 
-  for i, sen in tqdm(enumerate(Questions)):
+  for sen in tqdm(Questions):
     vector = []
-    
     for word in sen:
         try:
-            vector.append(model[word])
+            vector.append((model[word]))
         except Exception:
-            continue
-    vector = np.array(vector)
-    X.append(vector.mean())
+            vector.append(0)
+
+
+
+
+    X.append(mean(vector))
  
 
   y = np.array(ans)
   X = np.array(X)
   X = np.nan_to_num(X)
 
+  X = X*weights 
 
-  for val in X:
-      print(val)
 
   print(X.shape)
   print(y.shape)
