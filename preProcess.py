@@ -151,7 +151,7 @@ def main():
   Questions = []
   X = []
 
-  with open('listfile.txt', 'r') as filehandle:
+  with open('data/listfile.txt', 'r') as filehandle:
     for line in filehandle:
         # remove linebreak which is the last character of the string
         currentQuestion = line[:-1]
@@ -176,6 +176,10 @@ def main():
   X = np.array(X)
   X = np.nan_to_num(X)
 
+
+  for val in X:
+      print(val)
+
   print(X.shape)
   print(y.shape)
   np.save("data/y.npy", y)
@@ -184,4 +188,4 @@ def main():
       
 
 if __name__ == "__main__":
-    main()
+        main()

@@ -17,49 +17,40 @@ from sklearn import feature_selection
 from sklearn import metrics
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
 
 X = np.load("data/X.npy", allow_pickle=True)
 y = np.load("data/y.npy", allow_pickle=True)
-
-
-
 
 dX_train, dX_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=42)
 print(dX_train)
 print(y_train)
 
-dX_train = dX_train.reshape(-1,1)
 X_train = []
 X_test = []
 
 dX_test = dX_test.reshape(-1,1)
 clf = DecisionTreeClassifier(random_state=0)
-for val in dX_train:
-    X_train.append(val)
-    if not(float('-inf') < float(val) < float('inf')):
-        X_train.append(0)
-        
-for val in dX_test:
-    X_train.append(val)
-    if not(float('-inf') < float(val) < float('inf')):
-        X_test.append(0)
-        
 
-X_train = np.array(X_train)
-X_test = np.array(X_test)
+X_train = np.array(dX_train)
+X_test = np.array(dX_test)
 
-X_train = np.array([np.nan, 1, 2])
+X_train = X_train.reshape(-1, 1)
+X_test = X_test.reshape(-1, 1)
 
-
-
-
-X_train = X_train.reshape(-1,1)
-X_test = X_train.reshape(-1, 1)
-
+print(X_train.shape)
+print(X_test.shape)
 
 clf.fit(X_train, y_train)
 y_pred = clf.predict(X_test)
-classNames = y.unique()
+classNames = np.unique(y)
 
-print(classification_report(y_test, y_pred, target_names=classNames))
+hit = 0
+total = 0
 
+for i, val in enumerate(y_test):
+    if val == y_pred[i]:
+        hit+=1
+    total += 1
+
+print(accuracy_score(y_test, y_pred))
