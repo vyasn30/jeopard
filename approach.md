@@ -79,3 +79,7 @@ Setbacks :
 - Tried a new vectorizer called &quot;GoogleNews-vectors-negative300&quot; which is trained on Google News
 
 - This had comparatively less missing values, handled them and trained the model
+### Day 4 28/7/2021
+
+- The accuracy was pretty bad, came up with an idea of multiplying weights of the words in the corpus with the representation in the model.
+
