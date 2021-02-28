@@ -118,7 +118,7 @@ def binning(value):
 
 
 def main():
-  model = KeyedVectors.load_word2vec_format('GoogleNews-vectors-negative300.bin.gz', binary=True)
+  model = KeyedVectors.load_word2vec_format('data/GoogleNews-vectors-negative300.bin.gz', binary=True)
 
 
   df = pd.read_csv("data/JEOPARDY_CSV.csv")
@@ -178,8 +178,8 @@ def main():
 
   print(X.shape)
   print(y.shape)
-  np.save("y.npy", y)
-  np.save("X.npy", X)
+  np.save("data/y.npy", y)
+  np.save("data/X.npy", X)
     
       
 

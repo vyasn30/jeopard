@@ -18,8 +18,8 @@ from sklearn import metrics
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
 
-X = np.load("X.npy", allow_pickle=True)
-y = np.load("y.npy", allow_pickle=True)
+X = np.load("data/X.npy", allow_pickle=True)
+y = np.load("data/y.npy", allow_pickle=True)
 
 
 
